@@ -7,6 +7,7 @@ import dev.langchain4j.data.document.parser.apache.pdfbox.ApachePdfBoxDocumentPa
 import dev.langchain4j.memory.ChatMemory;
 import dev.langchain4j.memory.chat.ChatMemoryProvider;
 import dev.langchain4j.memory.chat.MessageWindowChatMemory;
+import dev.langchain4j.model.embedding.EmbeddingModel;
 import dev.langchain4j.model.openai.OpenAiChatModel;
 import dev.langchain4j.rag.content.retriever.ContentRetriever;
 import dev.langchain4j.rag.content.retriever.EmbeddingStoreContentRetriever;
@@ -27,6 +28,9 @@ public class AiConfig {
 
     @Resource
     RedisChatMemoryStore redisChatMemoryStore;
+
+    @Resource
+    EmbeddingModel embeddingModel;
 
 //    @Bean
 //    public AiService aiService() {
@@ -63,6 +67,7 @@ public class AiConfig {
         // 3.构建一个EmbeddingStoreInjector对象，将文档向量切割存储到向量数据库中
         EmbeddingStoreIngestor ingestor = EmbeddingStoreIngestor.builder()
                 .embeddingStore(store)
+                .embeddingModel(embeddingModel)
                 .build();
 
         ingestor.ingest(documents);
@@ -76,6 +81,7 @@ public class AiConfig {
                 .embeddingStore(store)
                 .minScore(0.5) // 设置最小余弦相似度
                 .maxResults(3) // 设置最大返回结果数
+                .embeddingModel(embeddingModel)
                 .build();
     }
 }
