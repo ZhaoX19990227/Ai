@@ -1,5 +1,6 @@
 package com.zx.ai.config;
 
+import com.zx.ai.repository.RedisChatMemoryStore;
 import dev.langchain4j.memory.ChatMemory;
 import dev.langchain4j.memory.chat.ChatMemoryProvider;
 import dev.langchain4j.memory.chat.MessageWindowChatMemory;
@@ -13,6 +14,9 @@ public class AiConfig {
 
     @Resource
     OpenAiChatModel openAiChatModel;
+
+    @Resource
+    RedisChatMemoryStore redisChatMemoryStore;
 
 //    @Bean
 //    public AiService aiService() {
@@ -33,6 +37,7 @@ public class AiConfig {
     public ChatMemoryProvider chatMemoryProvider() {
         return memoryId -> MessageWindowChatMemory.builder()
                 .maxMessages(20)
+                .chatMemoryStore(redisChatMemoryStore)
                 .id(memoryId)
                 .build();
     }
