@@ -28,7 +28,7 @@ public class ChatController {
     }
 
     @RequestMapping(value = "/chatForFlux", produces = "text/html;charset=UTF-8")
-    public Flux<String> chatForFlux(@RequestParam(name = "message", required = true) String message) {
-        return AiService.chatForFlux(message);
+    public Flux<String> chatForFlux(@RequestParam(name = "memoryId", required = true) String memoryId, @RequestParam(name = "message", required = true) String message) {
+        return AiService.chatForFlux(memoryId, message);
     }
 }
