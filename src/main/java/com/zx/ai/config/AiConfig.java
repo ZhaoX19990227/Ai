@@ -1,8 +1,8 @@
 package com.zx.ai.config;
 
-import com.zx.ai.aiService.AiService;
+import dev.langchain4j.memory.ChatMemory;
+import dev.langchain4j.memory.chat.MessageWindowChatMemory;
 import dev.langchain4j.model.openai.OpenAiChatModel;
-import dev.langchain4j.service.AiServices;
 import jakarta.annotation.Resource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -19,4 +19,11 @@ public class AiConfig {
 //                .chatModel(openAiChatModel)
 //                .build();
 //    }
+
+
+    // 构建回话记忆对象
+    @Bean
+    public ChatMemory chatMemory() {
+        return MessageWindowChatMemory.builder().maxMessages(20).build();
+    }
 }
