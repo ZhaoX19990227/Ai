@@ -13,7 +13,8 @@ import reactor.core.publisher.Flux;
 @dev.langchain4j.service.spring.AiService(wiringMode = AiServiceWiringMode.EXPLICIT, //手动装配
         chatModel = "openAiChatModel",  // 指定模型
         streamingChatModel = "openAiStreamingChatModel", // 指定流模型
-        chatMemoryProvider = "chatMemoryProvider") // 指定会话提供者记忆模型
+        chatMemoryProvider = "chatMemoryProvider", // 指定会话提供者记忆模型
+        contentRetriever = "contentRetriever") // 配置向量数据库检索对象
 //        chatMemory = "chatMemory")  // 指定记忆模型
 public interface AiService {
     String chat(String message);
